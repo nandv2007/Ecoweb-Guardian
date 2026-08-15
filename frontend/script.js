@@ -9,10 +9,8 @@ async function scanWebsite() {
 
     const url = input.value.trim();
 
-
     // Clear previous error
     error.classList.add("hidden");
-
 
     // Validate input
     if (!url) {
@@ -26,7 +24,6 @@ async function scanWebsite() {
         return;
     }
 
-
     // Start loading state
     loading.classList.remove("hidden");
 
@@ -36,11 +33,10 @@ async function scanWebsite() {
 
     button.querySelector("span").textContent = "Scanning...";
 
-
     try {
 
         const response = await fetch(
-            "http://localhost:5050/api/scan",
+            "https://ecoweb-guardian-api.onrender.com/api/scan",
             {
                 method: "POST",
 
@@ -54,9 +50,7 @@ async function scanWebsite() {
             }
         );
 
-
         const data = await response.json();
-
 
         if (!response.ok) {
 
@@ -65,7 +59,6 @@ async function scanWebsite() {
             );
         }
 
-
         /*
          * Website URL
          */
@@ -73,7 +66,6 @@ async function scanWebsite() {
         document.getElementById(
             "scannedUrl"
         ).textContent = data.url || url;
-
 
         /*
          * Sustainability score
@@ -86,11 +78,10 @@ async function scanWebsite() {
             "score"
         ).textContent = score;
 
-
         document.getElementById(
             "scoreBar"
-        ).style.width = `${Math.max(0, Math.min(score, 100))}%`;
-
+        ).style.width =
+            `${Math.max(0, Math.min(score, 100))}%`;
 
         /*
          * Score description
@@ -98,7 +89,6 @@ async function scanWebsite() {
 
         const scoreDescription =
             document.getElementById("scoreDescription");
-
 
         if (score >= 80) {
 
@@ -122,7 +112,6 @@ async function scanWebsite() {
 
         }
 
-
         /*
          * Image count
          */
@@ -131,7 +120,6 @@ async function scanWebsite() {
             "imageCount"
         ).textContent =
             data.imageCount ?? "--";
-
 
         /*
          * Total image size
@@ -153,7 +141,6 @@ async function scanWebsite() {
             ).textContent = "--";
         }
 
-
         /*
          * Potential savings
          */
@@ -173,7 +160,6 @@ async function scanWebsite() {
                 "savings"
             ).textContent = "--";
         }
-
 
         /*
          * Savings percentage
@@ -195,13 +181,11 @@ async function scanWebsite() {
             ).textContent = "--";
         }
 
-
         /*
          * Show results
          */
 
         results.classList.remove("hidden");
-
 
         // Smoothly move user to results
         setTimeout(() => {
@@ -213,19 +197,15 @@ async function scanWebsite() {
 
         }, 100);
 
-
     } catch (err) {
 
         console.error(err);
-
 
         error.textContent =
             "Unable to scan website: " +
             err.message;
 
-
         error.classList.remove("hidden");
-
 
     } finally {
 
