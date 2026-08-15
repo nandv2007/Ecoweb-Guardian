@@ -5,7 +5,7 @@ const scanWebsite = require("./src/scanner");
 
 const app = express();
 
-const PORT = 5050;
+const PORT = process.env.PORT || 5050;
 
 
 // -----------------------------
@@ -92,8 +92,9 @@ app.post("/api/scan", async (req, res) => {
 // -----------------------------
 
 app.listen(
-    PORT,
-    () => {
+  PORT,
+  "0.0.0.0",
+  () => {
 
         console.log(
             `EcoWeb Guardian backend running at http://localhost:${PORT}`
